@@ -2,8 +2,13 @@ const router = require('express').Router()
 const Car = require('./cars-model')
 const md = require('./cars-middleware')
 
-router.get('/', (req, res, next) => {
-    console.log('GET all connected')
+router.get('/', async (req, res, next) => {
+    try {
+        const cars = await Car.getAll()
+        res.json(cars)
+    } catch (err) {
+        next(err)
+    }
 })
 
 router.get('/:id', (req, res, next) => {
