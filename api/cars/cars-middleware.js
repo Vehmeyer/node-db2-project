@@ -2,7 +2,7 @@ const Car = require('./cars-model')
 const vinValidator = require('vin-validator')
 const db = require('../../data/db-config')
 
-const error = { status: 400 }
+// const error = { status: 400 }
 
 const checkCarId = async (req, res, next) => {
   try {
