@@ -1,5 +1,7 @@
 const Car = require('./cars-model')
 
+const error = { status: 400 }
+
 const checkCarId = async (req, res, next) => {
   try {
     const car = await Car.getById(req.params.id)
@@ -17,7 +19,17 @@ const checkCarId = async (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
-  // DO YOUR MAGIC
+  const { vin, make, model, mileage } = req.body
+  if (!vin || !make || !model || !mileage) {
+    error.message = "<field name> is missing"
+    // error.message = `${} is missing`
+  }
+
+  if (error.message) {
+    next(error)
+  } else {
+    next()
+  }
 }
 
 const checkVinNumberValid = (req, res, next) => {
