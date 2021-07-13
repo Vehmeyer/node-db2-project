@@ -11,12 +11,14 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.get('/:id', (req, res, next) => {
-    console.log('GET by id connected')
+router.get('/:id', md.checkCarId, async (req, res) => {
+    res.json(req.car)
 })
+
 router.post('/', (req, res, next) => {
     console.log('POST connected')
 })
+
 router.use((err, req, res, next) => { // eslint-disable-line
     res.status(err.status || 500).json({
       message: err.message,
