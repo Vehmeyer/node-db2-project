@@ -2,8 +2,6 @@ const Car = require('./cars-model')
 const vinValidator = require('vin-validator')
 const db = require('../../data/db-config')
 
-// const error = { status: 400 }
-
 const checkCarId = async (req, res, next) => {
   try {
     const car = await Car.getById(req.params.id)
@@ -21,7 +19,6 @@ const checkCarId = async (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
-  // const { vin, make, model, mileage } = req.body
   if (!req.body.vin) return next({
     status: 400,
     message: "vin is missing"
@@ -40,41 +37,9 @@ const checkCarPayload = (req, res, next) => {
     })
     next()
 }
-  // } else if (!make) {
-  //   error.message = `${make} is missing` 
-  // } else if (!model) {
-  //   error.message = `${model} is missing`
-  // } else if (!mileage) {
-  //   error.message = `${mileage} is missing`
-  // }
-
-  // if (error.message) {
-  //   next(error)
-  // } else {
-  //   next()
-  // }
-
-  // const { vin } = req.body
-  // if (!vin) {
-  //   res.status(400).json({message: "vin is missing"})
-  // } else {
-  //   next()
-  // }
-
-
+ 
 const checkVinNumberValid = (req, res, next) => {
-  // const { vin } = req.body
-  // const isVinValid = vinValidator.validate(req.body.vin)
-  // if (!isVinValid) {
-  //   error.message = `vin ${req.body.vin} is invalid`
-  // }
-
-  // if (error.message) {
-  //   next(error)
-  // } else {
-  //   next()
-  // }
-   if(vinValidator.validate(req.body.vin)) {
+  if(vinValidator.validate(req.body.vin)) {
      next()
    } else {
      next({
